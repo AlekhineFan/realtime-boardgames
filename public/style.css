@@ -1,0 +1,17 @@
+
+h1{
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 10vh;
+}
+
+#board{
+    margin-top: 10vh;
+}
+
+.board-square{
+    width: 8vh;
+    height: 8vh;
+    border: 1px solid black;
+    background-color: lightgray;
+}
