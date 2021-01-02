@@ -6,26 +6,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const squares = document.querySelectorAll(".board-square");
 
-  let selectedSquareId;
-  let idCounter = 1;
   let clickCounter = 0;
 
-  squares.forEach((square) => {
-    square.setAttribute("id", `${idCounter}`);
+  squares.forEach(square => {
     square.addEventListener("click", () => {
-      selectedSquareId = square.id;
-      socket.emit("messageToServer", { selectedSquareId });
+      socket.emit("messageToServer", {
+        selectedSquareId: square.id,
+        player: clickCounter % 2 === 0 ? "first" : "second"
+      });
     });
-    idCounter++;
   });
 
-  socket.on("messageFromServer", (dataFromServer) => {
+  socket.on("messageFromServer", dataFromServer => {
+    console.log(dataFromServer);
     let opponentMoveId = dataFromServer.msg.selectedSquareId;
-    squares.forEach((square) => {
+    squares.forEach(square => {
       if (square.id === opponentMoveId) {
         square.style.backgroundColor = clickCounter % 2 === 0 ? "blue" : "red";
         clickCounter++;
       }
     });
+
+    let gameState = dataFromServer.msg.gameState;
+
+    if (gameState === 0) {
+      alert("First player won!");
+    } else if (gameState === 1) {
+      alert("second player won!");
+    }
   });
 });
