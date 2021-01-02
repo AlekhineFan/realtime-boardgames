@@ -3,7 +3,7 @@ const State = require("./squareState");
 const checkState = (board, square) => {
   const group = [];
 
-  const getNeighbours = () => {
+  const getNeighbours = square => {
     const neighbours = [];
     let row = square.rowCoordinate;
     let col = square.colCoordinate;
@@ -25,12 +25,12 @@ const checkState = (board, square) => {
     return neighbours;
   };
 
-  const getAllConnected = () => {
+  const getAllConnected = square => {
     square.checked = true;
     if (!group.includes(square)) {
       group.push(square);
     }
-    const sameNeighbours = getNeighbours(board, square).filter(
+    const sameNeighbours = getNeighbours(square).filter(
       n => n.squareState === square.squareState && n.checked === false
     );
 
@@ -41,23 +41,28 @@ const checkState = (board, square) => {
         }
       });
       sameNeighbours.forEach(n => {
-        getAllConnected(board, n);
+        getAllConnected(n);
       });
     }
   };
 
+  let live;
+
   const isGroupLive = () => {
-    getAllConnected();
+    getAllConnected(square);
     const values = [];
     group.forEach(n => {
-      values.push(
-        getNeighbours(board, n).some(n => n.squareState === State.empty)
-      );
+      values.push(getNeighbours(n).some(n => n.squareState === State.empty));
     });
-    return values.includes(true);
+    live = values.includes(true);
   };
 
+  board.squares.forEach(sq => {
+    sq.forEach(s => (s.checked = false));
+  });
+
   isGroupLive();
+  return live;
 };
 
 module.exports = checkState;
