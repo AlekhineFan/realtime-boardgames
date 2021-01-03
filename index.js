@@ -1,6 +1,7 @@
 const express = require("express");
 const socketio = require("socket.io");
 const Game = require("./middleware/atariGame");
+const GameManager = require("./middleware/gameManager");
 const State = require("./atari/squareState");
 const app = express();
 
@@ -13,6 +14,7 @@ app.get("/", (req, res) => {
   res.sendFile("index.html");
 });
 
+const manager = new GameManager();
 const game = new Game();
 
 io.on("connect", socket => {
@@ -24,7 +26,7 @@ io.on("connect", socket => {
     let squareState = msg.player === "first" ? State.black : State.white;
     game.setBoard(row, col, squareState);
 
-    console.log(game.gameState);
+    //console.log(game.gameState);
     msg.gameState = game.gameState;
     io.emit("messageFromServer", { msg });
   });
