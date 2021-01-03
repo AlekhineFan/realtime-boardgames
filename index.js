@@ -21,8 +21,8 @@ io.on("connect", socket => {
     let row = Math.floor(squareid / 10);
     let col = squareid % 10;
 
-    let player = msg.player === "first" ? State.black : State.white;
-    game.setBoard(row, col, player);
+    let squareState = msg.player === "first" ? State.black : State.white;
+    game.setBoard(row, col, squareState);
 
     console.log(game.gameState);
     msg.gameState = game.gameState;
