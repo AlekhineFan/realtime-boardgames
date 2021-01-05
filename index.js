@@ -4,15 +4,23 @@ const Game = require("./middleware/atariGame");
 const GameManager = require("./middleware/gameManager");
 const State = require("./atari/squareState");
 const app = express();
+const playRouter = require("./routers/play");
 
 const server = app.listen(3000);
 const io = socketio(server);
 
-app.use(express.static("./public"));
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile("landing.html");
+  res.sendFile("index.html");
 });
+
+/*
+app.get("/play", (req, res) => {
+  res.sendFile("play.html");
+});*/
+
+app.use("/play", playRouter);
 
 const manager = new GameManager();
 const game = new Game();
