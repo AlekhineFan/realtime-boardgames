@@ -6,19 +6,26 @@
     font-weight: bold;
 }
 
-#main{
+#landing-main {
+    width: 100vw;
+    height: 100vh;
+    background: url("./images/table.jpg");
+    background-size: 100%;
+}
+
+#main {
     align-items: center;
 }
 
-.board{
+.board {
     align-self: center;
 }
 
-.rule{
+.rule {
     background-color: lightblue;
 }
 
-.players{
+.players {
     background-color: lightgray;
 }
 
@@ -27,4 +34,21 @@
     height: 8vh;
     border: 1px solid black;
     background-color: lightgray;
+}
+
+.landing-form {
+    background-color: lightgray;
+    max-width: 30vw;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    position: absolute;
+    top: 33vh;
+    left: 36vw;
+}
+
+.contribute {
+    text-decoration: none;
+    position: fixed;
+    top: 95vh;
+    left: 70vw;
 }
