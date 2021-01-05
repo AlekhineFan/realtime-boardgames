@@ -1,7 +1,6 @@
 
 .title {
     text-align: center;
-    margin-top: 3vh;
     font-size: 6vh;
     font-weight: bold;
 }
@@ -14,7 +13,10 @@
 }
 
 #main {
-    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: url("./images/paper-door.jpg");
+    background-size: 100%;
 }
 
 .board {
@@ -22,16 +24,18 @@
 }
 
 .rule {
-    background-color: lightblue;
+    background-color: white;
+    border: 1px solid black;
 }
 
 .players {
-    background-color: lightgray;
+    background-color: white;
+    border: 1px solid black;
 }
 
 .board-square{
-    width: 8vh;
-    height: 8vh;
+    width: 9vh;
+    height: 9vh;
     border: 1px solid black;
     background-color: lightgray;
 }
@@ -49,6 +53,6 @@
 .contribute {
     text-decoration: none;
     position: fixed;
-    top: 95vh;
-    left: 70vw;
+    top: 93vh;
+    left: 65vw;
 }
