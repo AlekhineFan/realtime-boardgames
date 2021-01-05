@@ -11,7 +11,7 @@ const io = socketio(server);
 app.use(express.static("./public"));
 
 app.get("/", (req, res) => {
-  res.sendFile("index.html");
+  res.sendFile("landing.html");
 });
 
 const manager = new GameManager();
