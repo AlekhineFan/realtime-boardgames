@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const squares = document.querySelectorAll(".board-square");
+  const imgSourceBlack = "./images/black-stone.png";
 
   let clickCounter = 0;
 
@@ -25,7 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let opponentMoveId = dataFromServer.msg.selectedSquareId;
     squares.forEach(square => {
       if (square.id === opponentMoveId) {
-        square.style.backgroundColor = clickCounter % 2 === 0 ? "blue" : "red";
+        //square.style.backgroundColor = clickCounter % 2 === 0 ? "blue" : "red";
+        square.innerHTML += `<img src="${imgSourceBlack}" class="stone"></img>`;
         clickCounter++;
       }
     });
@@ -41,5 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   socket.on("sendPlayerPool", playerPool => {
     console.log(playerPool);
+  });
+
+  socket.on("refreshPlayerPool", pool => {
+    console.log(pool);
+    let players = "";
+    pool.forEach(p => {
+      players += `<li>${p}</li>`;
+    });
+    document.querySelector("#players-list").innerHTML = players;
   });
 });
