@@ -56,3 +56,22 @@
     top: 93vh;
     left: 65vw;
 }
+
+ul {
+    align-self: center;
+}
+
+li {
+    list-style: none;
+    font-weight: bold;
+    color: gray;
+}
+
+.column-title {
+    align-items: center;
+}
+
+.stone{
+    max-width: 8.8vw;
+    max-height: 8.8vh;
+}
