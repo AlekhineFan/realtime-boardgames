@@ -4,7 +4,6 @@ const Game = require("./middleware/atariGame");
 const GameManager = require("./middleware/gameManager");
 const State = require("./atari/squareState");
 const app = express();
-const playRouter = require("./routers/play");
 
 const server = app.listen(3000);
 const io = socketio(server);
@@ -42,7 +41,9 @@ io.on("connect", socket => {
       playerPool.push(playerName);
     }
 
-    console.log("new player has joined", playerName);
-    console.log(playerPool);
+    //console.log("new player has joined", playerName);
+    //console.log(playerPool);
+
+    io.emit("refreshPlayerPool", playerPool);
   });
 });
