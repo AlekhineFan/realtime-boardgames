@@ -37,7 +37,7 @@
     width: 9vh;
     height: 9vh;
     border: 1px solid black;
-    background-color: lightgray;
+    background-color: rgb(240, 240, 240);
 }
 
 .landing-form {
