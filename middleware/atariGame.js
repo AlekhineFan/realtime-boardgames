@@ -2,9 +2,11 @@ const State = require("../atari/squareState");
 const Board = require("../atari/board");
 const checkState = require("../atari/checkState.js");
 const GameState = require("../atari/gameState");
+const uuidv = require("uuid");
 
 class Game {
   constructor(firstPlayer, secondPlayer) {
+    this.id = uuidv.v1();
     this.firstPlayer = firstPlayer;
     this.secondPlayer = secondPlayer;
     this.board = new Board(8);
