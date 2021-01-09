@@ -10,6 +10,8 @@ const io = socketio(server);
 
 const playerPool = [];
 
+const manager = new GameManager();
+
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -20,7 +22,19 @@ app.get("/play", (req, res) => {
   res.sendFile("play.html", { root: "./public" });
 });
 
-const manager = new GameManager();
+app.get("/play/newgame/:names", (req, res) => {
+  let players = req.params.names.split("|");
+  let player1 = players[0];
+  let player2 = players[1];
+
+  let newGame = new Game(player1, player2);
+
+  manager.addGame(newGame);
+  console.log(`new game: ${player1} vs ${player2}`);
+
+  res.send({ gameId: newGame.id });
+});
+
 const game = new Game();
 
 io.on("connect", socket => {
@@ -41,9 +55,11 @@ io.on("connect", socket => {
       playerPool.push(playerName);
     }
 
-    //console.log("new player has joined", playerName);
-    //console.log(playerPool);
+    io.emit("refreshPlayerPool", playerPool);
+  });
 
+  socket.on("disconnect", playerName => {
+    playerPool.splice(playerPool.indexOf(playerName), 1);
     io.emit("refreshPlayerPool", playerPool);
   });
 });
