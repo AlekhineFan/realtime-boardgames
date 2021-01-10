@@ -5,7 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("connect", () => {
     console.log(`Connected! id: ${socket.id}`);
     playerName = localStorage.getItem("playerName");
-    socket.emit("playerJoined", playerName);
+    socket.emit("playerJoined", {
+      playerName: playerName,
+      socketId: socket.id
+    });
     document.querySelector(
       "#welcome"
     ).innerText = `Have a good game, ${playerName}!`;
@@ -14,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const squares = document.querySelectorAll(".board-square");
   const imgSourceBlack = "./images/black-stone.png";
   const imgSourceWhite = "./images/white-stone.png";
+
+  let gameid;
 
   const createStone = (square, color) => {
     let stoneImg = document.createElement("img");
@@ -28,8 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
   squares.forEach(square => {
     square.addEventListener("click", () => {
       socket.emit("messageToServer", {
-        selectedSquareId: square.id
-        //player: clickCounter % 2 === 0 ? "first" : "second"
+        selectedSquareId: square.id,
+        gameId: gameId,
+        player: playerName
       });
     });
   });
@@ -38,19 +44,22 @@ document.addEventListener("DOMContentLoaded", () => {
     if (player1 === player2) return;
     axios
       .get(`/play/newgame/${player1}|${player2}`)
-      .then(res => console.log(res.data.gameId))
+      .then(res => (gameId = res.data.gameId))
+      .then(console.log(gameId))
       .catch(err => console.log(err));
   };
 
   socket.on("messageFromServer", dataFromServer => {
     console.log(dataFromServer);
     let squareId = dataFromServer.msg.selectedSquareId;
+    let name = dataFromServer.msg.player;
     squares.forEach(square => {
       if (square.id === squareId) {
-        //square.style.backgroundColor = clickCounter % 2 === 0 ? "blue" : "red";
-        square.innerHTML += `<img src="${imgSourceBlack}" class="stone"></img>`;
-        //clickCounter++;
-        createStone(square, "black");
+        if (name === playerName) {
+          createStone(square, "black");
+        } else {
+          createStone(square, "white");
+        }
       }
     });
 
@@ -63,15 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  socket.on("sendPlayerPool", playerPool => {
+  /*socket.on("sendPlayerPool", playerPool => {
     console.log(playerPool);
-  });
+  });*/
 
   socket.on("refreshPlayerPool", pool => {
     //console.log(pool);
     let players = "";
-    pool.forEach(p => {
-      players += `<li>${p}</li>`;
+    pool.forEach(player => {
+      players += `<li>${player}</li>`;
     });
     document.querySelector("#players-list").innerHTML = players;
     document.querySelectorAll("li").forEach(li =>
