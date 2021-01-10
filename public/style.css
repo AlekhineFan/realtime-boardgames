@@ -67,6 +67,11 @@ li {
     color: gray;
 }
 
+li:hover {
+    cursor: pointer;
+    color: rgb(41, 230, 198);
+}
+
 .column-title {
     align-items: center;
 }
