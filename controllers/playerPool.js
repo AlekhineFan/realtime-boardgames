@@ -1,22 +1,23 @@
 class PlayerPool {
   constructor() {
-    this.playerPool = [];
+    this.namePool = [];
+    this.playersWithSockets = {};
   }
 
-  addPlayer(player) {
-    if (!this.playerPool.includes(player)) {
-      this.PlayerPool.push(player);
-    } else {
-      return "exists";
+  addPlayerWithSocket(name, socket) {
+    if (!this.namePool.includes(name)) {
+      this.namePool.push(name);
+      this.playersWithSockets[name] = socket;
     }
   }
 
   setPlayerStatus(player, status) {
-    this.playerPool.find(player).PlayerStatus = status;
+    this.playersWithSockets[player].PlayerStatus = status;
   }
 
-  removePlayer(player) {
-    this.playerPool = this.playerPool.filter(p => p != player);
+  removePlayer(playerName) {
+    delete this.playersWithSockets[playerName];
+    this.namePool = this.namePool.filter(pn => pn != playerName);
   }
 }
 
