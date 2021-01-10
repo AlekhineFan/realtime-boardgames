@@ -1,8 +1,10 @@
 const Game = require("./atariGame");
+const PlayerPool = require("../controllers/playerPool");
 
 class GameManager {
   constructor() {
     this.games = [];
+    this.playerPool = new PlayerPool();
   }
 
   addGame(game) {
