@@ -39,6 +39,8 @@ const game = new Game();
 
 io.on("connect", socket => {
   socket.on("messageToServer", msg => {
+    console.log(msg);
+
     let squareid = msg.selectedSquareId;
     let row = Math.floor(squareid / 10);
     let col = squareid % 10;
@@ -50,12 +52,16 @@ io.on("connect", socket => {
     io.emit("messageFromServer", { msg });
   });
 
-  socket.on("playerJoined", playerName => {
-    if (!playerPool.includes(playerName)) {
+  socket.on("playerJoined", msg => {
+    /*if (!playerPool.includes(playerName)) {
       playerPool.push(playerName);
-    }
+      console.log(playerName);
+    }*/
 
-    io.emit("refreshPlayerPool", playerPool);
+    manager.playerPool.addPlayerWithSocket(msg.playerName, msg.socketId);
+    console.log(manager.playerPool);
+
+    io.emit("refreshPlayerPool", manager.playerPool.);
   });
 
   socket.on("disconnect", playerName => {
