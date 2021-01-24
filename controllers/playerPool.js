@@ -1,14 +1,22 @@
+const PlayerStatus = require("./playerStatus");
+
 class PlayerPool {
   constructor() {
-    this.namePool = [];
     this.playersWithSockets = {};
+    this.names = [];
   }
 
-  addPlayerWithSocket(name, socket) {
-    if (!this.namePool.includes(name)) {
-      this.namePool.push(name);
-      this.playersWithSockets[name] = socket;
+  add(player) {
+    if (!this.names.includes(player.name)) {
+      this.names.push(player.name);
+      this.playersWithSockets[player.name] = player;
     }
+  }
+
+  getPlayer(playerName) {
+    const player = this.playersWithSockets[playerName];
+    player.playerStatus = PlayerStatus.playing;
+    return player;
   }
 
   setPlayerStatus(player, status) {
@@ -17,7 +25,7 @@ class PlayerPool {
 
   removePlayer(playerName) {
     delete this.playersWithSockets[playerName];
-    this.namePool = this.namePool.filter(pn => pn != playerName);
+    this.names = this.names.filter(pn => pn !== playerName);
   }
 }
 

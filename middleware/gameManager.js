@@ -1,26 +1,20 @@
 const Game = require("./atariGame");
-const PlayerPool = require("../controllers/playerPool");
 
 class GameManager {
   constructor() {
-    this.games = [];
-    this.playerPool = new PlayerPool();
+    this.games = {};
   }
 
   addGame(game) {
-    this.games.push(game);
+    this.games[game.id] = game;
   }
 
   removeGame(gameId) {
-    this.games = this.games.filter(g => gameId !== g.id);
+    delete this.games[gameId];
   }
 
   getGame(gameId) {
-    return this.games.filter(g => gameId === g.id);
-  }
-
-  isPlaying(playerName) {
-    return this.games.some(g => g.firstPlayer === playerName);
+    return this.games[gameId];
   }
 }
 

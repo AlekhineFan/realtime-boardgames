@@ -1,18 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io("http://localhost:3000");
-  let playerName = "";
+  const playerName = localStorage.getItem("playerName");
 
-  socket.on("connect", () => {
-    console.log(`Connected! id: ${socket.id}`);
-    playerName = localStorage.getItem("playerName");
-    socket.emit("playerJoined", {
-      playerName: playerName,
-      socketId: socket.id
-    });
-    document.querySelector(
-      "#welcome"
-    ).innerText = `Have a good game, ${playerName}!`;
+  socket.on("connect", socket => {
+    socket.emit("playerJoined", { playerName, socket });
   });
+
+  socket.on("boardChanged", state => console.log(state));
 
   const squares = document.querySelectorAll(".board-square");
   const imgSourceBlack = "./images/black-stone.png";
@@ -32,10 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   squares.forEach(square => {
     square.addEventListener("click", () => {
-      socket.emit("messageToServer", {
-        selectedSquareId: square.id,
-        gameId: gameId,
-        player: playerName
+      socket.emit("sendMoveToServer", {
+        /*selectedSquareId: square.id,
+          gameId: gameId,
+          player: playerName*/
       });
     });
   });
@@ -49,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(err => console.log(err));
   };
 
-  socket.on("messageFromServer", dataFromServer => {
+  socket.on("getMoveFromServer", dataFromServer => {
     console.log(dataFromServer);
     let squareId = dataFromServer.msg.selectedSquareId;
     let name = dataFromServer.msg.player;
@@ -71,14 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("second player won!");
     }
   });
+});
 
-  /*socket.on("sendPlayerPool", playerPool => {
+/*socket.on("sendPlayerPool", playerPool => {
     console.log(playerPool);
-  });*/
+  });
 
-  socket.on("refreshPlayerPool", pool => {
-    //console.log(pool);
-    let players = "";
+socket.on("refreshPlayerPool", pool => {
+  //console.log(pool);
+  let players = "";
     pool.forEach(player => {
       players += `<li>${player}</li>`;
     });
@@ -88,9 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
         startNewGame(playerName, li.innerText);
       })
     );
-  });
+});*/
 
-  socket.on("disconnect", () => {
+/*socket.on("disconnect", () => {
     socket.emit("disconnect", playerName);
-  });
-});
+  });*/

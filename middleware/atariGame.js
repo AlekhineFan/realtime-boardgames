@@ -3,6 +3,7 @@ const Board = require("../atari/board");
 const checkState = require("../atari/checkState.js");
 const GameState = require("../atari/gameState");
 const uuidv = require("uuid");
+const io = require("socket.io");
 
 class Game {
   constructor(firstPlayer, secondPlayer) {
@@ -15,6 +16,7 @@ class Game {
 
   setBoard(row, col, state) {
     this.board.squares[row][col].squareState = state;
+    this.firstPlayer.socket.emit("boardChanged", state);
     this.determineWinner();
   }
 

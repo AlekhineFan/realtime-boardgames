@@ -1,9 +1,10 @@
 PlayerStatus = {
   playing: 0,
-  acceptingChallanges: 1,
-  notAcceptingChallanges: 2
+  isFirstplayer: 1,
+  acceptingChallanges: 2,
+  notAcceptingChallanges: 3
 };
 
-Object.freeze(PlayingStatus);
+Object.freeze(PlayerStatus);
 
 module.exports = PlayerStatus;

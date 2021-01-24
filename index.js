@@ -2,15 +2,18 @@ const express = require("express");
 const socketio = require("socket.io");
 const Game = require("./middleware/atariGame");
 const GameManager = require("./middleware/gameManager");
+const PlayerPool = require("./controllers/playerPool");
 const State = require("./atari/squareState");
+const Player = require("./controllers/player");
 const app = express();
 
 const server = app.listen(3000);
 const io = socketio(server);
 
-const playerPool = [];
+//const playerPool = [];
 
 const manager = new GameManager();
+const pool = new PlayerPool();
 
 app.use(express.static("public"));
 
@@ -23,49 +26,54 @@ app.get("/play", (req, res) => {
 });
 
 app.get("/play/newgame/:names", (req, res) => {
-  let players = req.params.names.split("|");
-  let player1 = players[0];
-  let player2 = players[1];
+  const players = req.params.names.split("|");
+  const playerName1 = players[0];
+  const playername2 = players[1];
 
-  let newGame = new Game(player1, player2);
+  const player1 = pool.getPlayer(playerName1);
+  const player2 = pool.getPlayer(playername2);
 
-  manager.addGame(newGame);
-  console.log(`new game: ${player1} vs ${player2}`);
+  const game = new Game(player1, player2);
+  manager.addGame(game);
 
-  res.send({ gameId: newGame.id });
+  player1.socket.emit("newGameStarted", game.id);
+  player2.socket.emit("newGameStarted", game.id);
+
+  console.log(`new game: ${player1.name} vs ${player2.name}`);
+
+  res.sendStatus(204);
 });
 
-const game = new Game();
-
 io.on("connect", socket => {
-  socket.on("messageToServer", msg => {
-    console.log(msg);
+  socket.on("playerJoined", data => {
+    pool.add(new Player(data.playerName, socket));
+    //console.log(pool);
 
-    let squareid = msg.selectedSquareId;
-    let row = Math.floor(squareid / 10);
-    let col = squareid % 10;
+    io.emit("refreshPlayerPool", pool.names);
+  });
 
-    let squareState = msg.player === "first" ? State.black : State.white;
+  socket.on("sendMoveToServer", msg => {
+    //console.log("a user has clicked");
+    //console.log(msg);
+
+    const squareId = msg.selectedSquareId;
+    const row = Math.floor(squareId / 10);
+    const col = squareId % 10;
+    const squareState = msg.player === "first" ? State.black : State.white;
+    const game = manager.getGame(msg.gameId);
+
     game.setBoard(row, col, squareState);
-
     msg.gameState = game.gameState;
-    io.emit("messageFromServer", { msg });
+    game.firstPlayer.socket.emit("getMoveFromServer", {
+      squareid: squareId
+    });
   });
 
-  socket.on("playerJoined", msg => {
-    /*if (!playerPool.includes(playerName)) {
-      playerPool.push(playerName);
-      console.log(playerName);
-    }*/
-
-    manager.playerPool.addPlayerWithSocket(msg.playerName, msg.socketId);
-    console.log(manager.playerPool);
-
-    io.emit("refreshPlayerPool", manager.playerPool.);
-  });
-
-  socket.on("disconnect", playerName => {
-    playerPool.splice(playerPool.indexOf(playerName), 1);
-    io.emit("refreshPlayerPool", playerPool);
+  socket.on("playerDisconnect", playerName => {
+    //playerPool.splice(playerPool.indexOf(playerName), 1);
+    console.log("player disconnected");
+    pool.removePlayer(playerName);
+    io.emit("refreshPlayerPool", pool.names);
+    console.log(pool.names);
   });
 });
