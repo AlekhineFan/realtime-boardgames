@@ -33,7 +33,7 @@
     border: 1px solid black;
 }
 
-.board-square{
+.board-square {
     width: 9vh;
     height: 9vh;
     border: 1px solid black;
@@ -76,7 +76,28 @@ li:hover {
     align-items: center;
 }
 
-.stone{
+.stone {
     max-width: 8.8vw;
     max-height: 8.8vh;
+}
+
+.message {
+    width: 30vw;
+    height: 18vh;
+    position: fixed;
+    top: 0vh;
+    left: 35vw;
+    background-color: rgb(151, 255, 250);
+    text-align: center;
+    z-index: 30;
+    border-radius: 5px;
+    border: 1px solid black;
+    transform: translateY(-40vh);
+    transition: transform 1s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.message.show {
+    transform: translateY(40vh);
 }
