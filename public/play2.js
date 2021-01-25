@@ -1,8 +1,8 @@
 const socket = io("http://localhost:3000");
 const playerName = localStorage.getItem("playerName");
-const squares = document.querySelectorAll(".board-square");
 
 let currentGameId;
+let toTurn;
 
 socket.on("connect", () => {
   socket.emit("playerJoined", { playerName });
@@ -21,9 +21,37 @@ socket.on("refreshPlayerPool", pool => {
   );
 });
 
-socket.on("newGameStarted", gameId => {
-  console.log(gameId);
-  currentGameId = gameId;
+socket.on("newGameStarted", newGameData => {
+  console.log(newGameData.gameId);
+  currentGameId = newGameData.gameId;
+  setGameHeader(newGameData.firstPlayerName, newGameData.secondPlayerName);
+});
+
+socket.on("getMoveFromServer", gameData => {
+  console.log(gameData);
+  const squareId = gameData.squareId;
+  const name = gameData.name;
+  const squareState = gameData.squareState;
+  squares.forEach(square => {
+    if (square.id === squareId) {
+      const color = squareState === 1 ? "black" : "white";
+      createStone(square, color);
+    }
+  });
+
+  let gameState = gameData.gameState;
+
+  if (gameState === 0) {
+    //alert("First player won!");
+    document.querySelector("#message-container").classList.add("show");
+    setMessageText(name);
+    currentGameId = null;
+  } else if (gameState === 1) {
+    //alert("second player won!");
+    document.querySelector("#message-container").classList.add("show");
+    setMessageText(name);
+    currentGameId = null;
+  }
 });
 
 squares.forEach(square => {
