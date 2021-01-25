@@ -10,8 +10,6 @@ const app = express();
 const server = app.listen(3000);
 const io = socketio(server);
 
-//const playerPool = [];
-
 const manager = new GameManager();
 const pool = new PlayerPool();
 
@@ -36,10 +34,18 @@ app.get("/play/newgame/:names", (req, res) => {
   const game = new Game(player1, player2);
   manager.addGame(game);
 
-  player1.socket.emit("newGameStarted", game.id);
-  player2.socket.emit("newGameStarted", game.id);
+  player1.socket.emit("newGameStarted", {
+    gameId: game.id,
+    firstPlayerName: game.firstPlayer.name,
+    secondPlayerName: game.secondPlayer.name
+  });
+  player2.socket.emit("newGameStarted", {
+    gameId: game.id,
+    firstPlayerName: game.firstPlayer.name,
+    secondPlayerName: game.secondPlayer.name
+  });
 
-  console.log(`new game: ${player1.name} vs ${player2.name}`);
+  console.log(`new game: ${player1.name} vs. ${player2.name}`);
 
   res.sendStatus(204);
 });
@@ -47,33 +53,45 @@ app.get("/play/newgame/:names", (req, res) => {
 io.on("connect", socket => {
   socket.on("playerJoined", data => {
     pool.add(new Player(data.playerName, socket));
-    //console.log(pool);
-
     io.emit("refreshPlayerPool", pool.names);
+    console.log(`${data.playerName} has joined to the server`);
   });
 
-  socket.on("sendMoveToServer", msg => {
-    //console.log("a user has clicked");
-    //console.log(msg);
-
-    const squareId = msg.selectedSquareId;
+  socket.on("sendMoveToServer", gameData => {
+    const squareId = gameData.selectedSquareId;
     const row = Math.floor(squareId / 10);
     const col = squareId % 10;
-    const squareState = msg.player === "first" ? State.black : State.white;
-    const game = manager.getGame(msg.gameId);
+    const game = manager.getGame(gameData.gameId);
+
+    if (!game || game.playerToTurn !== gameData.player || !gameData.gameId)
+      return;
+
+    const squareState =
+      gameData.player === game.getFirstPlayerName() ? State.black : State.white;
 
     game.setBoard(row, col, squareState);
-    msg.gameState = game.gameState;
+
     game.firstPlayer.socket.emit("getMoveFromServer", {
-      squareid: squareId
+      squareId: squareId,
+      name: game.playerToTurn,
+      squareState: squareState,
+      gameState: game.gameState
     });
+    game.secondPlayer.socket.emit("getMoveFromServer", {
+      squareId: squareId,
+      name: game.playerToTurn,
+      squareState: squareState,
+      gameState: game.gameState
+    });
+
+    if (game.gameState !== 2) {
+      manager.removeGame(gameData.gameId);
+    }
   });
 
   socket.on("playerDisconnect", playerName => {
-    //playerPool.splice(playerPool.indexOf(playerName), 1);
-    console.log("player disconnected");
+    console.log(`${playerName} disconnected`);
     pool.removePlayer(playerName);
     io.emit("refreshPlayerPool", pool.names);
-    console.log(pool.names);
   });
 });
