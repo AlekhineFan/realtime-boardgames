@@ -1,5 +1,3 @@
-const Game = require("./atariGame");
-
 class GameManager {
   constructor() {
     this.games = {};

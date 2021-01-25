@@ -5,6 +5,7 @@ class Player {
     this.name = name;
     this.socket = socket;
     this.playerStatus = playerStatus;
+    this.isFirstPlayer = false;
   }
 }
 
