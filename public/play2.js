@@ -42,14 +42,12 @@ socket.on("getMoveFromServer", gameData => {
   let gameState = gameData.gameState;
 
   if (gameState === 0) {
-    //alert("First player won!");
     document.querySelector("#message-container").classList.add("show");
-    setMessageText(name);
+    setMessageText("Black");
     currentGameId = null;
   } else if (gameState === 1) {
-    //alert("second player won!");
     document.querySelector("#message-container").classList.add("show");
-    setMessageText(name);
+    setMessageText("White");
     currentGameId = null;
   }
 });
