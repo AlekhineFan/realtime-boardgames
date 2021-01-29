@@ -22,7 +22,7 @@ function clearBoard() {
   });
 }
 
-function setGameHeader(firstPlayer, secondPlayer) {
+function setHeader(firstPlayer, secondPlayer) {
   document.querySelector(
     "#welcome"
   ).innerHTML = `new game started: ${firstPlayer} vs. ${secondPlayer}`;
