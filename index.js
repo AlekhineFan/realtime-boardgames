@@ -85,6 +85,8 @@ io.on("connect", socket => {
     });
 
     if (game.gameState !== 2) {
+      game.firstPlayer = {};
+      game.secondPlayer = {};
       manager.removeGame(gameData.gameId);
     }
   });
