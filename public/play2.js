@@ -4,6 +4,10 @@ const playerName = localStorage.getItem("playerName");
 let currentGameId;
 let toTurn;
 
+document.addEventListener("DOMContentLoaded", () => {
+  setHeader(`Welcome, ${playerName}`);
+});
+
 socket.on("connect", () => {
   socket.emit("playerJoined", { playerName });
 });
@@ -24,7 +28,7 @@ socket.on("refreshPlayerPool", pool => {
 socket.on("newGameStarted", newGameData => {
   console.log(newGameData.gameId);
   currentGameId = newGameData.gameId;
-  setGameHeader(newGameData.firstPlayerName, newGameData.secondPlayerName);
+  setHeader(newGameData.firstPlayerName, newGameData.secondPlayerName);
 });
 
 socket.on("getMoveFromServer", gameData => {
