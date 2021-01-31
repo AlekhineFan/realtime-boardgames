@@ -11,4 +11,4 @@
 * Smart steps
 
 
-> The project uses Node/Express on the server side. Socket.io ensures fast communication between the players. Client side uses plain JavaScript with HTML&CSS and some Bootsrap 4
+> The project uses Node/Express on the server side. Socket.io ensures fast communication between the players. Client side uses plain JavaScript with HTML&CSS and some Bootsrap 4 classes. There is no database for player accounts, each player chooses a nickname for the session.
