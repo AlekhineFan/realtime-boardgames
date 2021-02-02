@@ -1,17 +1,19 @@
 const express = require("express");
 const socketio = require("socket.io");
+
+const app = express();
+const port = process.env.PORT || 3000;
+const server = app.listen(port);
+const io = socketio(server);
+
 const Game = require("./middleware/atariGame");
 const GameManager = require("./middleware/gameManager");
 const PlayerPool = require("./controllers/playerPool");
-const State = require("./atari/squareState");
 const Player = require("./controllers/player");
-const app = express();
-
-const server = app.listen(3000);
-const io = socketio(server);
 
 const manager = new GameManager();
 const pool = new PlayerPool();
+const State = require("./atari/squareState");
 
 app.use(express.static("public"));
 
