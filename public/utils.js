@@ -22,10 +22,16 @@ function clearBoard() {
   });
 }
 
-function setHeader(firstPlayer, secondPlayer) {
+function setHeaderForGame(firstPlayer, secondPlayer) {
   document.querySelector(
     "#welcome"
   ).innerHTML = `new game started: ${firstPlayer} vs. ${secondPlayer}`;
+}
+
+function setHeader(text){
+  document.querySelector(
+    "#welcome"
+  ).innerHTML = text;
 }
 
 document.querySelector("#close-message").addEventListener("click", () => {
