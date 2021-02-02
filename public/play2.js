@@ -28,7 +28,7 @@ socket.on("refreshPlayerPool", pool => {
 socket.on("newGameStarted", newGameData => {
   console.log(newGameData.gameId);
   currentGameId = newGameData.gameId;
-  setHeader(newGameData.firstPlayerName, newGameData.secondPlayerName);
+  setHeader(`new game: ${newGameData.firstPlayerName} vs. ${newGameData.secondPlayerName}`);
 });
 
 socket.on("getMoveFromServer", gameData => {
@@ -49,10 +49,12 @@ socket.on("getMoveFromServer", gameData => {
     document.querySelector("#message-container").classList.add("show");
     setMessageText("Black");
     currentGameId = null;
+    setHeader("Click on a player to start a game!");
   } else if (gameState === 1) {
     document.querySelector("#message-container").classList.add("show");
     setMessageText("White");
     currentGameId = null;
+    setHeader("Click on a player to start a game!");
   }
 });
 
