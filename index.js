@@ -6,15 +6,15 @@ const port = process.env.PORT || 3000;
 const server = app.listen(port);
 const io = socketio(server);
 
-const Game = require('./middleware/atariGame');
-const GameManager = require('./middleware/gameManager');
+const Game = require('./controllers/atariGame');
+const GameManager = require('./controllers/gameManager');
 const PlayerPool = require('./controllers/playerPool');
-const Player = require('./controllers/player');
+const Player = require('./classes/player');
 
 const manager = new GameManager();
 const pool = new PlayerPool();
-const State = require('./atari/squareState');
-const Status = require('./controllers/playerStatus');
+const State = require('./enums/squareState');
+const Status = require('./enums/playerStatus');
 
 app.use(express.static('public'));
 app.use('/public', express.static(__dirname + '/public'));

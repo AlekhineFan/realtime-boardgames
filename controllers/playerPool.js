@@ -1,4 +1,4 @@
-const PlayerStatus = require("./playerStatus");
+const PlayerStatus = require('../enums/playerStatus');
 
 class PlayerPool {
   constructor() {
