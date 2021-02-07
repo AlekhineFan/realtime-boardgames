@@ -38,7 +38,6 @@ socket.on('newGameStarted', newGameData => {
 });
 
 socket.on('getMoveFromServer', gameData => {
-  console.log(gameData);
   const squareId = gameData.squareId;
   const name = gameData.name;
   const squareState = gameData.squareState;
