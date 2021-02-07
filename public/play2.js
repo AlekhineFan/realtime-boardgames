@@ -26,7 +26,6 @@ socket.on('refreshPlayerPool', pool => {
 });
 
 socket.on('playerStatusChanged', data => {
-  console.log(data);
   const playerList = document.querySelector('#players-list').childNodes;
   playerList.forEach(li => {
     li.classList.add('blue');
@@ -34,7 +33,6 @@ socket.on('playerStatusChanged', data => {
 });
 
 socket.on('newGameStarted', newGameData => {
-  console.log(newGameData.gameId);
   currentGameId = newGameData.gameId;
   setHeader(`new game: ${newGameData.firstPlayerName} vs. ${newGameData.secondPlayerName}`);
 });
