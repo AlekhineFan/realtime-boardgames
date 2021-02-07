@@ -36,7 +36,7 @@ app.get('/play/newgame/:names', (req, res) => {
   const player2 = pool.getPlayer(playername2);
 
   if (player1.status === Status.playing || player2.status === Status.playing) {
-    res.status(409).send('player unavailable');
+    res.send('player unavailable').sendStatus(409);
   }
 
   player1.status = Status.playing;
