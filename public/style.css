@@ -1,103 +1,129 @@
+html * {
+  font-family: 'Egg Roll', sans-serif;
+}
 
 .title {
-    text-align: center;
-    font-size: 6vh;
-    font-weight: bold;
+  text-align: center;
+  font-size: 6vh;
+  font-weight: bold;
 }
 
 #landing-main {
-    width: 100vw;
-    height: 100vh;
-    background: url("./images/table.jpg");
-    background-size: 100%;
+  width: 100vw;
+  height: 100vh;
+  background: url('./images/table.jpg');
+  background-size: 100%;
 }
 
 #main {
-    width: 100vw;
-    height: 100vh;
-    background: url("./images/paper-door.jpg");
-    background-size: 100%;
+  width: 100vw;
+  height: 100vh;
+  background: url('./images/paper-door-light.png');
+  background-size: 100%;
+}
+
+#welcome {
+  font-family: 'Egg Roll Halftone', sans-serif !important;
+  font-size: 10vh;
 }
 
 .board {
-    align-self: center;
+  align-self: center;
+}
+
+.illegal {
+  border: 2px solid red;
 }
 
 .rule {
-    background-color: white;
-    border: 1px solid black;
+  font-size: 4vh;
+  background-color: white;
+  border: 1px solid black;
+  text-align: center;
 }
 
 .players {
-    background-color: white;
-    border: 1px solid black;
+  font-size: 4vh;
+  background-color: white;
+  border: 1px solid black;
+  text-align: center;
 }
 
 .board-square {
-    width: 9vh;
-    height: 9vh;
-    border: 1px solid black;
-    background-color: rgb(240, 240, 240);
+  width: 9vh;
+  height: 9vh;
+  border: 1px solid black;
+  background-color: rgb(240, 240, 240);
 }
 
 .landing-form {
-    background-color: lightgray;
-    max-width: 30vw;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    position: absolute;
-    top: 33vh;
-    left: 36vw;
+  background-color: lightgray;
+  max-width: 30vw;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  position: absolute;
+  top: 33vh;
+  left: 36vw;
 }
 
 .contribute {
-    text-decoration: none;
-    position: fixed;
-    top: 93vh;
-    left: 65vw;
+  text-decoration: none;
+  position: fixed;
+  top: 93vh;
+  left: 65vw;
 }
 
 ul {
-    align-self: center;
+  align-self: center;
+  display: flex;
 }
 
 li {
-    list-style: none;
-    font-weight: bold;
-    color: gray;
+  list-style: none;
+  font-weight: bold;
+  color: gray;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
 }
 
 li:hover {
-    cursor: pointer;
-    color: rgb(41, 230, 198);
+  cursor: pointer;
+  color: rgb(41, 230, 198);
 }
 
 .column-title {
-    align-items: center;
+  align-items: center;
 }
 
 .stone {
-    max-width: 8.8vw;
-    max-height: 8.8vh;
+  max-width: 8.8vw;
+  max-height: 8.8vh;
 }
 
 .message {
-    width: 30vw;
-    height: 18vh;
-    position: fixed;
-    top: 0vh;
-    left: 35vw;
-    background-color: rgb(151, 255, 250);
-    text-align: center;
-    z-index: 30;
-    border-radius: 5px;
-    border: 1px solid black;
-    transform: translateY(-40vh);
-    transition: transform 1s ease-in-out;
-    display: flex;
-    flex-direction: column;
+  width: 30vw;
+  height: 18vh;
+  position: fixed;
+  top: 0vh;
+  left: 35vw;
+  background-color: rgb(151, 255, 250);
+  text-align: center;
+  z-index: 30;
+  border-radius: 5px;
+  border: 1px solid black;
+  transform: translateY(-40vh);
+  transition: transform 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
 }
 
 .message.show {
-    transform: translateY(40vh);
+  transform: translateY(40vh);
+}
+
+.blue {
+  background-color: rgb(56, 202, 247);
 }
