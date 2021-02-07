@@ -30,17 +30,14 @@ app.get('/play', (req, res) => {
 app.get('/play/newgame/:names', (req, res) => {
   const players = req.params.names.split('|');
   const playerName1 = players[0];
-  const playername2 = players[1];
+  const playerName2 = players[1];
 
   const player1 = pool.getPlayer(playerName1);
-  const player2 = pool.getPlayer(playername2);
+  const player2 = pool.getPlayer(playerName2);
 
   if (player1.status === Status.playing || player2.status === Status.playing) {
     res.send('player unavailable').sendStatus(409);
   }
-
-  player1.status = Status.playing;
-  player2.status = Status.playing;
 
   const game = new Game(player1, player2);
   manager.addGame(game);
