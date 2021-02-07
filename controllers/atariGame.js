@@ -18,17 +18,10 @@ class Game {
     this.firstPlayer = players[0];
     this.secondPlayer = players[1];
 
-    this.firstPlayer.socket.emit('playerStatusChanged', {
-      names: [this.firstPlayer.name, this.secondPlayer.name],
-      status: 'playing',
-    });
-    this.secondPlayer.socket.emit('playerStatusChanged', {
-      names: [this.firstPlayer.name, this.secondPlayer.name],
-      status: 'playing',
-    });
-
     this.playerToTurn = this.firstPlayer.name;
     this.moveCount = moveCount;
+
+    this.sendplayerStatus(true);
   }
 
   setPlayerToTurn(playerName) {
@@ -68,6 +61,7 @@ class Game {
       if (lastMoveColor === 'black') {
         if (hasSurroundedWhite) {
           this.gameState = GameState.firstWon;
+          this.sendplayerStatus(false);
           console.log('black won');
         } else if (hasSurroundedBlack && !hasSurroundedWhite) {
           this.firstPlayer.socket.emit('illegalMove');
@@ -79,6 +73,7 @@ class Game {
       if (lastMoveColor === 'white') {
         if (hasSurroundedBlack) {
           this.gameState = GameState.secondWon;
+          this.sendplayerStatus(false);
           console.log('white won');
         } else if (hasSurroundedWhite && !hasSurroundedBlack) {
           this.secondPlayer.socket.emit('illegalMove');
@@ -132,6 +127,19 @@ class Game {
 
   isBoardFull() {
     return this.board.squares.every(squareArray => squareArray.every(square => square.squareState === 0));
+  }
+
+  sendplayerStatus(arePlaying) {
+    this.firstPlayer.socket.emit('setPlayerStatus', {
+      playerName1: this.firstPlayer.name,
+      playerName2: this.secondPlayer.name,
+      isPlaying: arePlaying,
+    });
+    this.secondPlayer.socket.emit('setPlayerStatus', {
+      playerName1: this.firstPlayer.name,
+      playerName2: this.secondPlayer.name,
+      isPlaying: arePlaying,
+    });
   }
 }
 
