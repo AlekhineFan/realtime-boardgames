@@ -1,8 +1,6 @@
 PlayerStatus = {
-  playing: 0,
-  isFirstplayer: 1,
-  acceptingChallanges: 2,
-  notAcceptingChallanges: 3
+  waiting: 0,
+  playing: 1,
 };
 
 Object.freeze(PlayerStatus);
