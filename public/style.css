@@ -76,6 +76,7 @@ html * {
 ul {
   align-self: center;
   display: flex;
+  flex-direction: column;
 }
 
 li {
@@ -125,5 +126,9 @@ li:hover {
 }
 
 .blue {
-  background-color: rgb(56, 202, 247);
+  color: rgb(56, 202, 247);
+}
+
+.green {
+  color: rgb(27, 236, 27);
 }
