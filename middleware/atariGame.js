@@ -1,9 +1,12 @@
-const State = require("../atari/squareState");
-const Board = require("../atari/board");
-const checkState = require("../atari/checkState.js");
-const GameState = require("../atari/gameState");
-const uuidv = require("uuid");
-const drawFirst = require("../utils/drawFirstPlayer.js");
+const uuidv = require('uuid');
+
+const Board = require('../atari/board');
+
+const GameState = require('../atari/gameState');
+const State = require('../atari/squareState');
+
+const checkState = require('../atari/checkState.js');
+const drawFirst = require('../utils/drawFirstPlayer.js');
 
 class Game {
   constructor(firstPlayer, secondPlayer, moveCount = 0) {
@@ -14,6 +17,15 @@ class Game {
     const players = drawFirst(firstPlayer, secondPlayer);
     this.firstPlayer = players[0];
     this.secondPlayer = players[1];
+
+    this.firstPlayer.socket.emit('playerStatusChanged', {
+      names: [this.firstPlayer.name, this.secondPlayer.name],
+      status: 'playing',
+    });
+    this.secondPlayer.socket.emit('playerStatusChanged', {
+      names: [this.firstPlayer.name, this.secondPlayer.name],
+      status: 'playing',
+    });
 
     this.playerToTurn = this.firstPlayer.name;
     this.moveCount = moveCount;
@@ -28,30 +40,98 @@ class Game {
   }
 
   setBoard(row, col, state) {
+    const lastMove = this.board.squares[row][col];
     this.board.squares[row][col].squareState = state;
-    this.determineWinner();
-    this.firstPlayer.socket.emit("boardChanged", state);
-    this.secondPlayer.socket.emit("boardChanged", state);
-    this.moveCount++;
-    this.playerToTurn =
-      this.moveCount % 2 === 0 ? this.firstPlayer.name : this.secondPlayer.name;
+
+    const isFull = this.isBoardFull();
+
+    if (isFull) {
+      this.gameState = GameState.draw;
+    } else {
+      const { hasSurroundedBlack, hasSurroundedWhite } = this.scanBoard();
+
+      let lastMoveColor;
+      if (lastMove.squareState === 1) {
+        lastMoveColor = 'black';
+      } else if (lastMove.squareState === 2) {
+        lastMoveColor = 'white';
+      }
+
+      if (!hasSurroundedBlack && !hasSurroundedWhite) {
+        if (!hasSurroundedBlack && !hasSurroundedWhite) {
+          this.moveCount++;
+        }
+
+        this.playerToTurn = this.moveCount % 2 === 0 ? this.firstPlayer.name : this.secondPlayer.name;
+      }
+
+      if (lastMoveColor === 'black') {
+        if (hasSurroundedWhite) {
+          this.gameState = GameState.firstWon;
+          console.log('black won');
+        } else if (hasSurroundedBlack && !hasSurroundedWhite) {
+          this.firstPlayer.socket.emit('illegalMove');
+          this.board.squares[row][col].squareState = State.empty;
+          console.log('illegal move by black');
+        }
+      }
+
+      if (lastMoveColor === 'white') {
+        if (hasSurroundedBlack) {
+          this.gameState = GameState.secondWon;
+          console.log('white won');
+        } else if (hasSurroundedWhite && !hasSurroundedBlack) {
+          this.secondPlayer.socket.emit('illegalMove');
+          this.board.squares[row][col].squareState = State.empty;
+          console.log('illegal move by white');
+        }
+      }
+    }
+
+    const stateAfterCheck = this.board.squares[row][col].squareState;
+    const id = row.toString() + col.toString();
+
+    this.firstPlayer.socket.emit('getMoveFromServer', {
+      squareId: id,
+      name: this.playerToTurn,
+      squareState: stateAfterCheck,
+      gameState: this.gameState,
+    });
+
+    this.secondPlayer.socket.emit('getMoveFromServer', {
+      squareId: id,
+      name: this.playerToTurn,
+      squareState: stateAfterCheck,
+      gameState: this.gameState,
+    });
+
+    if (this.gameState !== 2) {
+      this.firstPlayer = {};
+      this.secondPlayer = {};
+    }
   }
 
-  determineWinner() {
+  scanBoard() {
+    let hasSurroundedBlack = false;
+    let hasSurroundedWhite = false;
+
     this.board.squares.forEach(s => {
       s.forEach(sq => {
         if (checkState(this.board, sq) === false) {
           if (sq.squareState === State.black) {
-            this.gameState = GameState.secondWon;
-            return;
+            hasSurroundedBlack = true;
           }
           if (sq.squareState === State.white) {
-            this.gameState = GameState.firstWon;
-            return;
+            hasSurroundedWhite = true;
           }
         }
       });
     });
+    return { hasSurroundedBlack, hasSurroundedWhite };
+  }
+
+  isBoardFull() {
+    return this.board.squares.every(squareArray => squareArray.every(square => square.squareState === 0));
   }
 }
 
