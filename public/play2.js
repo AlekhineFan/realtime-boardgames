@@ -1,5 +1,6 @@
 const socket = io();
 const playerName = localStorage.getItem('playerName');
+const messageContainer = document.querySelector('#message-container');
 
 let currentGameId;
 let toTurn;
@@ -61,15 +62,18 @@ socket.on('getMoveFromServer', gameData => {
   let gameState = gameData.gameState;
 
   if (gameState === 0) {
-    document.querySelector('#message-container').classList.add('show');
+    messageContainer.classList.add('show');
     setMessageText('Black');
     currentGameId = null;
     setHeader('Click on a player to start a game!');
   } else if (gameState === 1) {
-    document.querySelector('#message-container').classList.add('show');
+    messageContainer.classList.add('show');
     setMessageText('White');
     currentGameId = null;
     setHeader('Click on a player to start a game!');
+  } else if (gameState === 3) {
+    messageContainer.classList.add('show');
+    setMessageText('Game drawn!');
   }
 });
 
