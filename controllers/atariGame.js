@@ -51,10 +51,7 @@ class Game {
       }
 
       if (!hasSurroundedBlack && !hasSurroundedWhite) {
-        if (!hasSurroundedBlack && !hasSurroundedWhite) {
-          this.moveCount++;
-        }
-
+        this.moveCount++;
         this.playerToTurn = this.moveCount % 2 === 0 ? this.firstPlayer.name : this.secondPlayer.name;
       }
 
