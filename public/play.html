@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atari Go</title>
+    <title>Atari Go - alpha version</title>
     <link rel="stylesheet" href="./style.css" />
     <link
       rel="stylesheet"
@@ -22,7 +22,22 @@
       <div id="welcome" class="title mb-5">Play Atari Go</div>
       <div class="container">
         <div class="row d-flex flex-row align-between">
-          <div class="col rule column-title"><p>Rules</p></div>
+          <div class="col rules column-title">
+            <p>Rules</p>
+            <span class="rule">
+              <p>
+                This game is known as Atari, or Capture Go. Black starts the game. Each player puts a stone on a square
+                in their turn. Stones of the same color are connected in rows and columns. A stone is live as long as it
+                has a connection with an empty square, or when it is the member of the group where at least one other
+                member connects with an empty square. Stone(s) without connection to an empty square are dead, and are
+                captured. The first player who makes a capture, wins.
+              </p>
+              <p>
+                To start playing, click on a player's name. When the name is grey, they are waiting for a challenge. If
+                the name is blue, they are currently playing.
+              </p>
+            </span>
+          </div>
           <div class="col board d-flex flex-column mx-5">
             <div class="d-flex flex-row">
               <div class="board-square" id="00"></div>
