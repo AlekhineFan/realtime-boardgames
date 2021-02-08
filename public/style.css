@@ -19,7 +19,7 @@ html * {
   width: 100vw;
   height: 100vh;
   background: url('./images/paper-door-light.png');
-  background-size: 100%;
+  background-size: contain;
 }
 
 #welcome {
@@ -35,7 +35,7 @@ html * {
   border: 2px solid red;
 }
 
-.rule {
+.rules {
   font-size: 4vh;
   background-color: white;
   border: 1px solid black;
@@ -69,8 +69,8 @@ html * {
 .contribute {
   text-decoration: none;
   position: fixed;
-  top: 93vh;
-  left: 65vw;
+  top: 95vh;
+  left: 35vw;
 }
 
 ul {
@@ -131,4 +131,8 @@ li:hover {
 
 .green {
   color: rgb(27, 236, 27);
+}
+
+.rule {
+  font-size: 2.1vh;
 }
