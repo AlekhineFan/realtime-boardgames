@@ -1,6 +1,7 @@
 const socket = io();
 const playerName = localStorage.getItem('playerName');
 const messageContainer = document.querySelector('#message-container');
+const knockSound = document.querySelector("#sound-knock");
 
 let currentGameId;
 let toTurn;
@@ -46,6 +47,8 @@ socket.on('newGameStarted', newGameData => {
 });
 
 socket.on('getMoveFromServer', gameData => {
+  knockSound.play();
+
   const squareId = gameData.squareId;
   const name = gameData.name;
   const squareState = gameData.squareState;
