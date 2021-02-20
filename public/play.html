@@ -19,116 +19,138 @@
       <button id="close-message">OK</button>
     </div>
     <div id="main">
-      <div id="welcome" class="title mb-5">Play Atari Go</div>
+      <div id="welcome" class="title">Welcome</div>
       <div class="container">
         <div class="row d-flex flex-row align-between">
-          <div class="col rules column-title">
-            <p>Rules</p>
-            <span class="rule">
-              <p>
-                This game is known as Atari, or Capture Go. Black starts the game. Each player puts a stone on a square
-                in their turn. Stones of the same color are connected in rows and columns. A stone is live as long as it
-                has a connection with an empty square, or when it is the member of the group where at least one other
-                member connects with an empty square. Stone(s) without connection to an empty square are dead, and are
-                captured. The first player who makes a capture, wins.
-              </p>
-              <p>
-                To start playing, click on a player's name. When the name is grey, they are waiting for a challenge. If
-                the name is blue, they are currently playing.
-              </p>
-            </span>
-          </div>
-          <div class="col board d-flex flex-column mx-5">
-            <div class="d-flex flex-row">
-              <div class="board-square" id="00"></div>
-              <div class="board-square" id="01"></div>
-              <div class="board-square" id="02"></div>
-              <div class="board-square" id="03"></div>
-              <div class="board-square" id="04"></div>
-              <div class="board-square" id="05"></div>
-              <div class="board-square" id="06"></div>
-              <div class="board-square" id="07"></div>
+          <nav id="menu" class="navbar navbar-expand-md navbar-light fixed-top">
+            <a href="" class="navbar-brand"><i class="fas fa-child text-warning fa-2x"></i></a>
+            <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse justify-content-between"  id="nav">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown"><a class="nav-link text-light text-uppercase font-weight-bold dropdown-toggle" data-toggle="dropdown" href="#">Rules</a>
+              <div class="dropdown-menu">              
+                <a class="dropdown-item container-fluid text-wrap" href="#"><p>This game is known as Atari, or Capture Go. Black starts the game. Each player puts a stone on a square
+                    in their turn.</p>
+                    <p>Stones of the same color are connected in rows and columns. A stone is live as long as it
+                    has a connection with an empty square, or when it is the member of the group where at least one other
+                    member connects with an empty square. Stone(s) without connection to an empty square are dead, and are
+                    captured. The first player who makes a capture, wins.</p>
+                    <p>If your move would take away the last free square from stones of your own color, it is only allowed if you capture the opposite color as well. If there is no capture until only one empty square is left, the game is drawn.</p>
+                </a>
+              </div>
+              </li>
+              <li class="nav-item dropdown"><a class="nav-link text-light text-uppercase font-weight-bold dropdown-toggle" data-toggle="dropdown" href="#">How to play</a>
+                <div class="dropdown-menu">              
+                  <a class="dropdown-item container-fluid text-wrap" href="#"><p>To start playing, click on a player's name. When the name is grey, they are waiting for a challenge. If
+                    the name is blue, they are currently playing.</p><p>The role of the first and second player is decided randomly. When the game starts, the order of the players's names indicates who plays first.</p><p>You can place a stone to a square by clicking on it.</p></a>
+              </li>
+              <li class="nav-item dropdown"><a class="nav-link text-light text-uppercase font-weight-bold dropdown-toggle" data-toggle="dropdown" href="#">About this game variant</a>
+                <div class="dropdown-menu">              
+                  <a class="dropdown-item container-fluid text-wrap" href="#">The board for the original game is different, because the stones are placed on the points, not in the squares. This version is for those who find the chessboard to be a more familiar environment.</a>
+              </li>
+              <li class="nav-item dropdown"><a class="nav-link text-light text-uppercase font-weight-bold dropdown-toggle" data-toggle="dropdown" href="#">Source code</a>
+                <div class="dropdown-menu">              
+                  <div class="dropdown-item container text-wrap">Check out the source code in my Github repo and feel free to make a pull request. <a href="https://github.com/alekhinefan/realtime-boardgames"> source code here</a></div>
+                </div>
+              </li>
+              </div>
+            </ul>
+          </nav>  
+            <div class="container-fluid">
+              <div class="row flex-wrap">
+                <div class="col board">
+                  <div class="d-flex flex-column">
+                    <div class="d-flex flex-row">
+                      <div class="board-square" id="00"></div>
+                      <div class="board-square" id="01"></div>
+                      <div class="board-square" id="02"></div>
+                      <div class="board-square" id="03"></div>
+                      <div class="board-square" id="04"></div>
+                      <div class="board-square" id="05"></div>
+                      <div class="board-square" id="06"></div>
+                      <div class="board-square" id="07"></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="board-square" id="10"></div>
+                      <div class="board-square" id="11"></div>
+                      <div class="board-square" id="12"></div>
+                      <div class="board-square" id="13"></div>
+                      <div class="board-square" id="14"></div>
+                      <div class="board-square" id="15"></div>
+                      <div class="board-square" id="16"></div>
+                      <div class="board-square" id="17"></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="board-square" id="20"></div>
+                      <div class="board-square" id="21"></div>
+                      <div class="board-square" id="22"></div>
+                      <div class="board-square" id="23"></div>
+                      <div class="board-square" id="24"></div>
+                      <div class="board-square" id="25"></div>
+                      <div class="board-square" id="26"></div>
+                      <div class="board-square" id="27"></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="board-square" id="30"></div>
+                      <div class="board-square" id="31"></div>
+                      <div class="board-square" id="32"></div>
+                      <div class="board-square" id="33"></div>
+                      <div class="board-square" id="34"></div>
+                      <div class="board-square" id="35"></div>
+                      <div class="board-square" id="36"></div>
+                      <div class="board-square" id="37"></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="board-square" id="40"></div>
+                      <div class="board-square" id="41"></div>
+                      <div class="board-square" id="42"></div>
+                      <div class="board-square" id="43"></div>
+                      <div class="board-square" id="44"></div>
+                      <div class="board-square" id="45"></div>
+                      <div class="board-square" id="46"></div>
+                      <div class="board-square" id="47"></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="board-square" id="50"></div>
+                      <div class="board-square" id="51"></div>
+                      <div class="board-square" id="52"></div>
+                      <div class="board-square" id="53"></div>
+                      <div class="board-square" id="54"></div>
+                      <div class="board-square" id="55"></div>
+                      <div class="board-square" id="56"></div>
+                      <div class="board-square" id="57"></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="board-square" id="60"></div>
+                      <div class="board-square" id="61"></div>
+                      <div class="board-square" id="62"></div>
+                      <div class="board-square" id="63"></div>
+                      <div class="board-square" id="64"></div>
+                      <div class="board-square" id="65"></div>
+                      <div class="board-square" id="66"></div>
+                      <div class="board-square" id="67"></div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="board-square" id="70"></div>
+                      <div class="board-square" id="71"></div>
+                      <div class="board-square" id="72"></div>
+                      <div class="board-square" id="73"></div>
+                      <div class="board-square" id="74"></div>
+                      <div class="board-square" id="75"></div>
+                      <div class="board-square" id="76"></div>
+                      <div class="board-square" id="77"></div>
+                    </div>
+                  </div>
+                </div>
+                <div id="players" class="col d-flex flex-column">
+                  <p class="text-dark">Players online</p>
+                 <ul class="navbar-nav mt-4" id="players-list">
+                 </ul>
+               </div>
+              </div>
             </div>
-            <div class="d-flex flex-row">
-              <div class="board-square" id="10"></div>
-              <div class="board-square" id="11"></div>
-              <div class="board-square" id="12"></div>
-              <div class="board-square" id="13"></div>
-              <div class="board-square" id="14"></div>
-              <div class="board-square" id="15"></div>
-              <div class="board-square" id="16"></div>
-              <div class="board-square" id="17"></div>
-            </div>
-            <div class="d-flex flex-row">
-              <div class="board-square" id="20"></div>
-              <div class="board-square" id="21"></div>
-              <div class="board-square" id="22"></div>
-              <div class="board-square" id="23"></div>
-              <div class="board-square" id="24"></div>
-              <div class="board-square" id="25"></div>
-              <div class="board-square" id="26"></div>
-              <div class="board-square" id="27"></div>
-            </div>
-            <div class="d-flex flex-row">
-              <div class="board-square" id="30"></div>
-              <div class="board-square" id="31"></div>
-              <div class="board-square" id="32"></div>
-              <div class="board-square" id="33"></div>
-              <div class="board-square" id="34"></div>
-              <div class="board-square" id="35"></div>
-              <div class="board-square" id="36"></div>
-              <div class="board-square" id="37"></div>
-            </div>
-            <div class="d-flex flex-row">
-              <div class="board-square" id="40"></div>
-              <div class="board-square" id="41"></div>
-              <div class="board-square" id="42"></div>
-              <div class="board-square" id="43"></div>
-              <div class="board-square" id="44"></div>
-              <div class="board-square" id="45"></div>
-              <div class="board-square" id="46"></div>
-              <div class="board-square" id="47"></div>
-            </div>
-            <div class="d-flex flex-row">
-              <div class="board-square" id="50"></div>
-              <div class="board-square" id="51"></div>
-              <div class="board-square" id="52"></div>
-              <div class="board-square" id="53"></div>
-              <div class="board-square" id="54"></div>
-              <div class="board-square" id="55"></div>
-              <div class="board-square" id="56"></div>
-              <div class="board-square" id="57"></div>
-            </div>
-            <div class="d-flex flex-row">
-              <div class="board-square" id="60"></div>
-              <div class="board-square" id="61"></div>
-              <div class="board-square" id="62"></div>
-              <div class="board-square" id="63"></div>
-              <div class="board-square" id="64"></div>
-              <div class="board-square" id="65"></div>
-              <div class="board-square" id="66"></div>
-              <div class="board-square" id="67"></div>
-            </div>
-            <div class="d-flex flex-row">
-              <div class="board-square" id="70"></div>
-              <div class="board-square" id="71"></div>
-              <div class="board-square" id="72"></div>
-              <div class="board-square" id="73"></div>
-              <div class="board-square" id="74"></div>
-              <div class="board-square" id="75"></div>
-              <div class="board-square" id="76"></div>
-              <div class="board-square" id="77"></div>
-            </div>
-          </div>
-          <div class="col players column-title">
-            <p>players online</p>
-            <ul id="players-list"></ul>
-          </div>
         </div>
       </div>
-      <!--a class="contribute" href="https://www.freepik.com/photos/abstract-background"
-        >Abstract background photo created by jannoon028 - www.freepik.com</a
-    -->
     </div>
 
     <script

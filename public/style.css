@@ -16,46 +16,34 @@ html * {
   background-size: cover;
 }
 
-#main {
-  min-width: 100vw;
-  max-height: 100vh;
-  background: url('./images/paper-door-light.png') no-repeat;
-  background-position: center;
+body {
+  background: url('./images/bamboo.jpg');
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
 #welcome {
   font-family: 'Egg Roll Halftone', sans-serif !important;
   font-size: 10vh;
-}
-
-.board {
-  align-self: center;
+  margin-top: 10vh;
 }
 
 .illegal {
   border: 2px solid red;
 }
 
-.rules {
+#players {
   font-size: 4vh;
-  background-color: white;
-  border: 1px solid black;
-  text-align: center;
-}
-
-.players {
-  font-size: 4vh;
-  background-color: white;
+  background-color: rgb(181, 243, 231);
   border: 1px solid black;
   text-align: center;
 }
 
 .board-square {
-  width: 9vh;
-  height: 9vh;
+  width: 65px;
+  height: 65px;
   border: 1px solid black;
-  background-color: rgb(240, 240, 240);
+  background-image: url('./images/square-bg.png');
 }
 
 .landing-form {
@@ -69,14 +57,7 @@ html * {
   max-width: 30vw;
 }
 
-.contribute {
-  text-decoration: none;
-  position: fixed;
-  top: 95vh;
-  left: 35vw;
-}
-
-ul {
+#players-list {
   align-self: center;
   display: flex;
   flex-direction: column;
@@ -88,8 +69,8 @@ li {
   color: gray;
   margin-top: 2px;
   margin-bottom: 2px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 4px;
+  margin-right: 4px;
   align-self: center;
 }
 
@@ -138,4 +119,140 @@ li:hover {
 
 .rule {
   font-size: 2.1vh;
+}
+
+.navbar {
+  font-size: 3.5vh;
+}
+
+.navbar-expand-md {
+  background-color: rgb(139, 137, 137);
+}
+
+.dropdown-menu {
+  width: 30vw;
+  font-size: 6vw;
+}
+
+@media (min-width: 414px) {
+  .board-square {
+    width: 52px;
+    height: 52px;
+  }
+  .board {
+    margin-bottom: 2vh;
+    margin-left: 8vw;
+    margin-right: auto;
+  }
+  #players {
+    max-height: 110px;
+    max-width: 416px;
+    margin-left: 10vw;
+    margin-right: auto;
+  }
+  .stone {
+    width: 50px;
+    height: 50px;
+  }
+  body {
+    background-image: url('./images/bamboo.jpg') no-repeat center fixed;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-attachment: fixed;
+    background-color: #fff;
+    -webkit-background-size: calc(100vw) calc(100vh);
+    -moz-background-size: calc(100vw) calc(100vh);
+    -o-background-size: calc(100vw) calc(100vh);
+    background-size: calc(100vw) calc(100vh);
+  }
+  #welcome {
+    font-size: 7vw;
+  }
+  #players-list {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10vh;
+  }
+  #players {
+    max-height: 140px;
+    max-width: 416px;
+    margin-left: 10vw;
+    margin-right: auto;
+  }
+  .dropdown-menu {
+    width: 65vw;
+    font-size: 10vw;
+  }
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+  #players {
+    max-height: 145px;
+  }
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+  .board {
+    margin-left: 15vw;
+  }
+  #players {
+    max-height: 150px;
+    width: 418px;
+    margin-left: 16.5vw;
+  }
+  #players-list {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+  .board {
+    margin-right: -20vw;
+    margin-left: 15vw;
+  }
+  #players {
+    max-width: 20vw;
+    margin-left: -10vw;
+    max-height: 480px;
+    min-width: 17px;
+  }
+  #players-list {
+    flex-direction: column;
+  }
+  .board-square {
+    width: 60px;
+    height: 60px;
+  }
+  .stone {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+  .board {
+    margin-left: 10vw;
+  }
+  #players {
+    max-width: 16vw;
+    min-width: 14px;
+    max-height: 502px;
+    margin-right: 10vw;
+  }
+  .board-square {
+    width: 63px;
+    height: 63px;
+  }
+  .stone {
+    width: 61px;
+    height: 61px;
+  }
+  #welcome {
+    font-size: 10vh;
+  }
 }
