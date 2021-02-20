@@ -206,6 +206,10 @@ li:hover {
     display: flex;
     flex-direction: row;
   }
+  .dropdown-menu {
+    width: 40vw;
+    font-size: 8vw;
+  }
 }
 
 /*Large devices (desktops, 992px and up)*/
@@ -230,6 +234,10 @@ li:hover {
   .stone {
     width: 58px;
     height: 58px;
+  }
+  .dropdown-menu {
+    width: 35vw;
+    font-size: 7vw;
   }
 }
 
