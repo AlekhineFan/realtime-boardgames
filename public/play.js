@@ -31,6 +31,7 @@ socket.on('refreshPlayerPool', pool => {
 });
 
 socket.on('setPlayerStatus', data => {
+  console.log(data);
   const playerList = document.querySelector('#players-list').childNodes;
   playerList.forEach(li => {
     if (li.innerText === data.playerName1 || li.innerText === data.playerName2) {
@@ -119,6 +120,12 @@ squares.forEach(square => {
 
 socket.on('disconnect', () => {
   socket.emit('playerDisconnect', playerName);
+});
+
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  socket.emit('playerDisconnect', playerName);
+  e.returnValue = 'asd';
 });
 
 async function startNewGame(player1, player2) {
