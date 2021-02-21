@@ -33,7 +33,7 @@ document.querySelector('#close-message').addEventListener('click', () => {
 });
 
 function setMessageText(text) {
-  document.querySelector('#message-text').innerText = `${text} won the game!`;
+  document.querySelector('#message-text').innerText = `${text} won!`;
 }
 
 function setPlayersStatus(players, status) {}
