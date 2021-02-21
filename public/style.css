@@ -29,7 +29,9 @@ body {
 }
 
 .illegal {
-  border: 2px solid red;
+  border: 4px solid red;
+  background-color: red;
+  color: red;
 }
 
 #players {
@@ -84,17 +86,17 @@ li:hover {
 }
 
 .stone {
-  max-width: 8.8vw;
-  max-height: 8.8vh;
+  width: 50px;
+  height: 50px;
 }
 
 .message {
-  width: 30vw;
+  width: 20vw;
   height: 18vh;
   position: fixed;
   top: 0vh;
-  left: 35vw;
-  background-color: rgb(151, 255, 250);
+  left: 30vw;
+  background-color: rgb(189, 189, 189);
   text-align: center;
   z-index: 30;
   border-radius: 5px;
@@ -103,10 +105,23 @@ li:hover {
   transition: transform 1s ease-in-out;
   display: flex;
   flex-direction: column;
+  padding: 5px;
 }
 
 .message.show {
   transform: translateY(40vh);
+}
+
+#message-text {
+  font-size: 3vw;
+  margin-top: 0.5vh;
+}
+
+#close-message {
+  max-width: 8vw;
+  min-width: 6vw;
+  align-self: center;
+  margin-top: -2vh;
 }
 
 .blue {
@@ -189,6 +204,10 @@ li:hover {
 @media (min-width: 576px) {
   #players {
     max-height: 145px;
+  }
+  .stone {
+    width: 50px;
+    height: 50px;
   }
 }
 
