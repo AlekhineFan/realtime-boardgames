@@ -11,6 +11,8 @@ const GameManager = require('./controllers/gameManager');
 const PlayerPool = require('./controllers/playerPool');
 const Player = require('./classes/player');
 
+const gameOverBroadcast = require('./utils/gameOverBroadcast');
+
 const manager = new GameManager();
 const pool = new PlayerPool();
 const State = require('./enums/squareState');
@@ -36,10 +38,7 @@ app.get('/play/newgame/:names', (req, res) => {
   const player1 = pool.getPlayer(playerName1);
   const player2 = pool.getPlayer(playerName2);
 
-  if (player1.status === Status.playing || player2.status === Status.playing) {
-    return;
-    //res.send('player unavailable').sendStatus(409);
-  }
+  if (player1.status === Status.playing || player2.status === Status.playing || !player1 || !player2) return;
 
   const game = new Game(player1, player2);
   manager.addGame(game);
@@ -49,10 +48,17 @@ app.get('/play/newgame/:names', (req, res) => {
     firstPlayerName: game.firstPlayer.name,
     secondPlayerName: game.secondPlayer.name,
   });
+
   player2.socket.emit('newGameStarted', {
     gameId: game.id,
     firstPlayerName: game.firstPlayer.name,
     secondPlayerName: game.secondPlayer.name,
+  });
+
+  io.emit('setPlayerStatus', {
+    playerName1: game.firstPlayer.name,
+    playerName2: game.secondPlayer.name,
+    isPlaying: true,
   });
 
   console.log(`new game: ${player1.name} vs. ${player2.name}`);
@@ -80,7 +86,7 @@ io.on('connect', socket => {
     game.setBoard(row, col, squareState);
 
     if (game.gameState !== 2) {
-      manager.removeGame(gameData.gameId);
+      gameOverBroadcast(io, game, gameData);
     }
   });
 
