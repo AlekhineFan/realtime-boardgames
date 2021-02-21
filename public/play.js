@@ -1,11 +1,11 @@
 const socket = io();
 const playerName = localStorage.getItem('playerName');
 const messageContainer = document.querySelector('#message-container');
-const moveSound = document.querySelector("#sound-knock");
-const gameStartSound = document.querySelector("#sound-gamestart");
-const gameOverSound = document.querySelector("#sound-gameover");
-const illegalMoveSound = document.querySelector("#sound-illegal");
- 
+const moveSound = document.querySelector('#sound-knock');
+const gameStartSound = document.querySelector('#sound-gamestart');
+const gameOverSound = document.querySelector('#sound-gameover');
+const illegalMoveSound = document.querySelector('#sound-illegal');
+
 let currentGameId;
 let toTurn;
 
@@ -20,19 +20,18 @@ socket.on('connect', () => {
 socket.on('refreshPlayerPool', pool => {
   let playerNames = '';
   pool.forEach(player => {
-    playerNames += `<li>${player}</li>`;
+    playerNames += `<li class="player-element">${player}</li>`;
   });
   document.querySelector('#players-list').innerHTML = playerNames;
-  document.querySelectorAll('li').forEach(li =>
-    li.addEventListener('click', () => {
-      startNewGame(playerName, li.innerText);
+  document.querySelectorAll('.player-element').forEach(pe =>
+    pe.addEventListener('click', () => {
+      startNewGame(playerName, pe.innerText);
     })
   );
 });
 
 socket.on('setPlayerStatus', data => {
   const playerList = document.querySelector('#players-list').childNodes;
-  console.log(data);
   playerList.forEach(li => {
     if (li.innerText === data.playerName1 || li.innerText === data.playerName2) {
       if (data.isPlaying) {
@@ -94,13 +93,18 @@ socket.on('getMoveFromServer', gameData => {
   }
 });
 
-socket.on('illegalMove', () => {
-  const board = document.querySelector('.board');
-  board.classList.add('illegal');
-  illegalMoveSound.play();
-  setTimeout(() => {
-    board.classList.remove('illegal');
-  }, 2000);
+socket.on('illegalMove', coordinates => {
+  illegalId = coordinates.row.toString() + coordinates.col.toString();
+  console.log(coordinates);
+  squares.forEach(sq => {
+    if (sq.id === illegalId) {
+      illegalMoveSound.play();
+      sq.classList.add('illegal');
+      setTimeout(() => {
+        sq.classList.remove('illegal');
+      }, 2000);
+    }
+  });
 });
 
 squares.forEach(square => {
