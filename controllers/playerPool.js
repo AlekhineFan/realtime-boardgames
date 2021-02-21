@@ -11,6 +11,7 @@ class PlayerPool {
       this.names.push(player.name);
       this.playersWithSockets[player.name] = player;
     }
+    console.log(this.names);
   }
 
   getPlayer(playerName) {
