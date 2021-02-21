@@ -86,7 +86,7 @@ io.on('connect', socket => {
     game.setBoard(row, col, squareState);
 
     if (game.gameState !== 2) {
-      gameOverBroadcast(io, game, gameData);
+      gameOverBroadcast(io, manager, game, gameData);
     }
   });
 
