@@ -18,6 +18,7 @@ const Status = require('./enums/playerStatus');
 
 app.use(express.static('public'));
 app.use('/public', express.static(__dirname + '/public'));
+app.use('/favicon.ico', express.static('./public/images/favicon.ico'));
 
 app.get('/', (req, res) => {
   res.sendFile('index.html');
