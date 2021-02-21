@@ -31,7 +31,6 @@ socket.on('refreshPlayerPool', pool => {
 });
 
 socket.on('setPlayerStatus', data => {
-  console.log(data);
   const playerList = document.querySelector('#players-list').childNodes;
   playerList.forEach(li => {
     if (li.innerText === data.playerName1 || li.innerText === data.playerName2) {
@@ -52,7 +51,6 @@ socket.on('newGameStarted', newGameData => {
 
 socket.on('getMoveFromServer', gameData => {
   const squareId = gameData.squareId;
-  const name = gameData.name;
   const squareState = gameData.squareState;
 
   for (const square of squares) {
@@ -96,7 +94,6 @@ socket.on('getMoveFromServer', gameData => {
 
 socket.on('illegalMove', coordinates => {
   illegalId = coordinates.row.toString() + coordinates.col.toString();
-  console.log(coordinates);
   squares.forEach(sq => {
     if (sq.id === illegalId) {
       illegalMoveSound.play();
