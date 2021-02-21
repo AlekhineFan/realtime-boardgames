@@ -4,6 +4,7 @@ const Board = require('../classes/board.js');
 
 const GameState = require('../enums/gameState.js');
 const State = require('../enums/squareState.js');
+const PlayerStatus = require('../enums/playerStatus');
 
 const checkState = require('../utils/checkState.js');
 const drawFirst = require('../utils/drawFirstPlayer.js');
@@ -21,6 +22,7 @@ class Game {
     this.playerToTurn = this.firstPlayer.name;
     this.moveCount = moveCount;
 
+    this.setPlayersStatus(PlayerStatus.playing);
     this.sendplayerStatus(true);
   }
 
@@ -30,6 +32,11 @@ class Game {
 
   getFirstPlayerName() {
     return this.firstPlayer.name;
+  }
+
+  setPlayersStatus(status) {
+    this.firstPlayer.status = status;
+    this.secondPlayer.status = status;
   }
 
   setBoard(row, col, state) {
@@ -42,6 +49,7 @@ class Game {
 
     if (isFull) {
       this.gameState = GameState.draw;
+      this.setPlayersStatus(PlayerStatus.waiting);
     } else {
       const { hasSurroundedBlack, hasSurroundedWhite } = this.scanBoard();
 
@@ -60,6 +68,7 @@ class Game {
       if (lastMoveColor === 'black') {
         if (hasSurroundedWhite) {
           this.gameState = GameState.firstWon;
+          this.setPlayersStatus(PlayerStatus.waiting);
           this.sendplayerStatus(false);
           console.log('black won');
         } else if (hasSurroundedBlack && !hasSurroundedWhite) {
@@ -75,6 +84,7 @@ class Game {
       if (lastMoveColor === 'white') {
         if (hasSurroundedBlack) {
           this.gameState = GameState.secondWon;
+          this.setPlayersStatus(PlayerStatus.waiting);
           this.sendplayerStatus(false);
           console.log('white won');
         } else if (hasSurroundedWhite && !hasSurroundedBlack) {
@@ -106,8 +116,8 @@ class Game {
     });
 
     if (this.gameState !== 2) {
-      this.firstPlayer = {};
-      this.secondPlayer = {};
+      //this.firstPlayer = {};
+      //this.secondPlayer = {};
     }
   }
 
