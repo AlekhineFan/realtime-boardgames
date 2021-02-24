@@ -14,19 +14,21 @@
   </head>
   <body>
     <div id="landing-main">
-      <form method="GET" action="/play">
+      <form>
         <div class="container landing-form shadow-lg rounded">
           <div class="mb-3">
+            <div id="warning" class="text-danger"></div>
             <label for="player-name" class="form-label">nickname</label>
             <input type="text" class="form-control" id="player-name" name="playerName" placeholder="enter your one time nickname" />
           </div>
           <div class="mb-3">
             <p class="text-white">
-              This site does not require, gather or store any personal data and does not require registration. Simply enter a nickname you would like to use for your next playing session.
+              This site does not require, gather or store any personal data and does not require registration. Pick a friendly nickname of 3-10 charcter length that you would like to use for your
+              playing session.
             </p>
           </div>
           <div class="d-flex flex-row-reverse">
-            <button id="btn-play" type="submit" class="btn f5-2 fw-bold">Play</button>
+            <button id="btn-play" class="btn f5-2 fw-bold">Play</button>
           </div>
         </div>
       </form>
