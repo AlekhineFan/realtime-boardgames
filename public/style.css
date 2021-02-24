@@ -8,13 +8,13 @@ html * {
   font-weight: bold;
 }
 
-#landing-main {
+/*#landing-main {
   max-width: 100vw;
   min-height: 100vh;
   background: url('./images/table.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-}
+}*/
 
 body {
   background: url('./images/bamboo.jpg');
@@ -49,7 +49,7 @@ body {
 }
 
 .landing-form {
-  background-color: lightgray;
+  background-color: rgb(158, 158, 158);
   border: 1px solid lightgray;
   border-radius: 5px;
   position: absolute;

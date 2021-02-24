@@ -30,9 +30,7 @@ const checkState = (board, square) => {
     if (!group.includes(square)) {
       group.push(square);
     }
-    const sameNeighbours = getNeighbours(square).filter(
-      n => n.squareState === square.squareState && n.checked === false
-    );
+    const sameNeighbours = getNeighbours(square).filter(n => n.squareState === square.squareState && n.checked === false);
 
     if (sameNeighbours.length > 0) {
       sameNeighbours.forEach(n => {
