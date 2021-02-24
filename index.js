@@ -12,6 +12,7 @@ const PlayerPool = require('./controllers/playerPool');
 const Player = require('./classes/player');
 
 const gameOverBroadcast = require('./utils/gameOverBroadcast');
+const checkPlayerName = require('./utils/checkPlayerName');
 
 const manager = new GameManager();
 const pool = new PlayerPool();
@@ -26,8 +27,15 @@ app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
-app.get('/play', (req, res) => {
-  res.sendFile('play.html', { root: './public' });
+app.get('/play/:name', (req, res) => {
+  const name = req.params.name;
+  const checkResult = checkPlayerName(pool, name);
+
+  if (checkResult === true) {
+    res.status(200).sendFile('play.html', { root: './public' });
+  } else {
+    res.status(409).send(checkResult);
+  }
 });
 
 app.get('/play/newgame/:names', (req, res) => {
