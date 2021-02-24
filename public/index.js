@@ -3,8 +3,10 @@ const formInfo = document.querySelector('#warning');
 
 btnPlay.addEventListener('click', async e => {
   e.preventDefault();
+  let playerName = document.querySelector('#player-name').value;
+  localStorage.setItem('playerName', playerName);
   await axios
-    .get(`/play/${document.querySelector('#player-name').value}`)
+    .get(`/play/${playerName}`)
     .then(res => {
       console.log(res.statusText);
       document.open();
