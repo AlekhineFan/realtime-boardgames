@@ -122,7 +122,7 @@ socket.on('disconnect', () => {
 window.addEventListener('beforeunload', function (e) {
   e.preventDefault();
   socket.emit('playerDisconnect', playerName);
-  e.returnValue = 'asd';
+  e.returnValue = '';
 });
 
 async function startNewGame(player1, player2) {
