@@ -11,6 +11,19 @@ function createStone(square, color) {
   square.appendChild(stoneImg);
 }
 
+function displayError(square) {
+  if (square.hasChildNodes()) return;
+
+  let stoneImg = document.createElement('img');
+  stoneImg.setAttribute('src', './images/exclamation.png');
+  stoneImg.setAttribute('class', 'exclam');
+  square.appendChild(stoneImg);
+
+  setTimeout(function () {
+    square.removeChild(stoneImg);
+  }, 2500);
+}
+
 function clearBoard() {
   const stones = document.querySelectorAll('.stone');
   stones.forEach(s => {
