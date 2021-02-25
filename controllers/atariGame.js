@@ -73,8 +73,8 @@ class Game {
           console.log('black won');
         } else if (hasSurroundedBlack && !hasSurroundedWhite) {
           this.firstPlayer.socket.emit('illegalMove', {
-            row: this.board.squares[row],
-            col: this.board.squares[col],
+            row,
+            col,
           });
           this.board.squares[row][col].squareState = State.empty;
           console.log('illegal move by black');
@@ -88,9 +88,9 @@ class Game {
           this.sendplayerStatus(false);
           console.log('white won');
         } else if (hasSurroundedWhite && !hasSurroundedBlack) {
-          this.firstPlayer.socket.emit('illegalMove', {
-            row: this.board.squares[row],
-            col: this.board.squares[col],
+          this.secondPlayer.socket.emit('illegalMove', {
+            row,
+            col,
           });
           this.board.squares[row][col].squareState = State.empty;
           console.log('illegal move by white');
