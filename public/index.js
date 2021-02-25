@@ -8,7 +8,6 @@ btnPlay.addEventListener('click', async e => {
   await axios
     .get(`/play/${playerName}`)
     .then(res => {
-      console.log(res.statusText);
       document.open();
       document.write(res.data);
       document.close();
