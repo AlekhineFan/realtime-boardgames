@@ -97,10 +97,7 @@ socket.on('illegalMove', coordinates => {
   squares.forEach(sq => {
     if (sq.id === illegalId) {
       illegalMoveSound.play();
-      sq.classList.add('illegal');
-      setTimeout(() => {
-        sq.classList.remove('illegal');
-      }, 2000);
+      displayError(sq);
     }
   });
 });
