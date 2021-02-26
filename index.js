@@ -24,7 +24,7 @@ app.use('/public', express.static(__dirname + '/public'));
 app.use('/favicon.ico', express.static('./public/images/favicon.ico'));
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html');
+  res.sendFile('index.html', { root: './public/html' });
 });
 
 app.get('/play/:name', (req, res) => {
@@ -32,7 +32,7 @@ app.get('/play/:name', (req, res) => {
   const checkResult = checkPlayerName(pool, name);
 
   if (checkResult === true) {
-    res.status(200).sendFile('play.html', { root: './public' });
+    res.status(200).sendFile('play.html', { root: './public/html' });
   } else {
     res.status(409).send(checkResult);
   }
