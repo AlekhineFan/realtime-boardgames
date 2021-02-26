@@ -9,7 +9,7 @@ html * {
 }
 
 body {
-  background: url('./images/bamboo.jpg');
+  background: url('../images/bamboo.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -36,7 +36,7 @@ body {
   width: 65px;
   height: 65px;
   border: 1px solid black;
-  background-image: url('./images/square-bg.png');
+  background-image: url('../images/square-bg.png');
 }
 
 .landing-form {
@@ -165,7 +165,7 @@ li:hover {
     height: 50px;
   }
   body {
-    background-image: url('./images/bamboo.jpg') no-repeat center fixed;
+    background-image: url('../images/bamboo.jpg') no-repeat center fixed;
     background-repeat: no-repeat;
     background-position: 0px 0px;
     background-attachment: fixed;
