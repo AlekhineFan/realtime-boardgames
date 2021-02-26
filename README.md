@@ -10,9 +10,10 @@
 * install: npm i
 * run: npm start 
 
-### future plans
+### future plans (no particular order)
 ##### add logging
 ##### add timer
+##### make it mobile friendly
 ##### keep track of points earned in a session
 ##### implementing new games:
 * Cats and dogs
