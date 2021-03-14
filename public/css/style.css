@@ -14,6 +14,18 @@ body {
   background-size: cover;
 }
 
+body {
+  background-image: url('../images/bamboo.jpg') no-repeat center fixed;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-attachment: fixed;
+  background-color: #fff;
+  -webkit-background-size: calc(100vw) calc(100vh);
+  -moz-background-size: calc(100vw) calc(100vh);
+  -o-background-size: calc(100vw) calc(100vh);
+  background-size: calc(100vw) calc(100vh);
+}
+
 #welcome {
   font-family: 'Egg Roll Halftone', sans-serif !important;
   font-size: 10vh;
@@ -27,9 +39,25 @@ body {
 
 #players {
   font-size: 4vh;
-  background-color: rgb(181, 243, 231);
+  background-color: rgb(252, 240, 174);
   border: 1px solid black;
   text-align: center;
+  overflow: auto;
+  padding: 0;
+  margin-top: 4vh;
+}
+
+#players-list {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#players-list-title {
+  background-color: rgb(255, 202, 56);
+  position: sticky;
+  left: 10px;
+  top: 0px;
 }
 
 .board-square {
@@ -48,12 +76,6 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   max-width: 30vw;
-}
-
-#players-list {
-  align-self: center;
-  display: flex;
-  flex-direction: column;
 }
 
 li {
@@ -135,9 +157,62 @@ li:hover {
   background-color: rgb(139, 137, 137);
 }
 
-.dropdown-menu {
-  width: 30vw;
-  font-size: 6vw;
+.menu-item {
+  min-width: 40vw;
+}
+
+@media (min-width: 319px) {
+  .landing-form {
+    background-color: rgb(158, 158, 158);
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 70vw;
+  }
+  .board-square {
+    width: 12vw;
+    height: 12vw;
+  }
+  .board {
+    margin-top: 4vh;
+    margin-bottom: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #players {
+    max-height: 80px;
+    max-width: 90.8vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0vh;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+  #players-list {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    margin-bottom: 3vh;
+  }
+  .stone {
+    max-width: 10.8vw;
+    max-height: 10.8vw;
+  }
+  .exclam {
+    width: 11.3vw;
+    height: 11.3vw;
+  }
+  #welcome {
+    margin-top: 15vh;
+    font-size: 8vw;
+  }
+  .dropdown-menu {
+    width: 65vw;
+    font-size: 10vw;
+  }
 }
 
 @media (min-width: 414px) {
@@ -155,6 +230,8 @@ li:hover {
     max-width: 416px;
     margin-left: 10vw;
     margin-right: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
   }
   .stone {
     width: 50px;
@@ -164,30 +241,14 @@ li:hover {
     width: 50px;
     height: 50px;
   }
-  body {
-    background-image: url('../images/bamboo.jpg') no-repeat center fixed;
-    background-repeat: no-repeat;
-    background-position: 0px 0px;
-    background-attachment: fixed;
-    background-color: #fff;
-    -webkit-background-size: calc(100vw) calc(100vh);
-    -moz-background-size: calc(100vw) calc(100vh);
-    -o-background-size: calc(100vw) calc(100vh);
-    background-size: calc(100vw) calc(100vh);
-  }
   #welcome {
     font-size: 7vw;
+    margin-top: 10vh;
   }
   #players-list {
     display: flex;
     flex-direction: row;
     margin-bottom: 10vh;
-  }
-  #players {
-    max-height: 140px;
-    max-width: 416px;
-    margin-left: 10vw;
-    margin-right: auto;
   }
   .dropdown-menu {
     width: 65vw;
@@ -208,6 +269,10 @@ li:hover {
     width: 50px;
     height: 50px;
   }
+  .landing-form {
+    min-width: 49vw;
+    max-width: 50vw;
+  }
 }
 
 /*Medium devices (tablets, 768px and up)*/
@@ -217,7 +282,7 @@ li:hover {
   }
   #players {
     max-height: 150px;
-    width: 418px;
+    min-width: 418px;
     margin-left: 16.5vw;
   }
   #players-list {
@@ -227,6 +292,10 @@ li:hover {
   .dropdown-menu {
     width: 40vw;
     font-size: 8vw;
+  }
+  .landing-form {
+    min-width: 29.9vw;
+    max-width: 30vw;
   }
 }
 
@@ -240,7 +309,10 @@ li:hover {
     max-width: 20vw;
     margin-left: -10vw;
     max-height: 480px;
+    margin-top: 4vh;
     min-width: 17px;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   #players-list {
     flex-direction: column;
@@ -269,8 +341,7 @@ li:hover {
     margin-left: 10vw;
   }
   #players {
-    max-width: 16vw;
-    min-width: 14px;
+    max-width: 20vw;
     max-height: 502px;
     margin-right: 10vw;
   }
