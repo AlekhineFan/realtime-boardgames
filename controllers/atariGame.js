@@ -1,33 +1,14 @@
-const uuidv = require('uuid');
-
-const Board = require('../classes/board.js');
+const Game = require('./game.js');
 
 const GameState = require('../enums/gameState.js');
 const State = require('../enums/squareState.js');
 const PlayerStatus = require('../enums/playerStatus');
 
 const checkState = require('../utils/checkState.js');
-const drawFirst = require('../utils/drawFirstPlayer.js');
 
-class Game {
+class AtariGame extends Game {
   constructor(firstPlayer, secondPlayer, moveCount = 0) {
-    this.id = uuidv.v1();
-    this.board = new Board(8);
-    this.gameState = GameState.ongoing;
-
-    const players = drawFirst(firstPlayer, secondPlayer);
-    this.firstPlayer = players[0];
-    this.secondPlayer = players[1];
-
-    this.playerToTurn = this.firstPlayer.name;
-    this.moveCount = moveCount;
-
-    this.setPlayersStatus(PlayerStatus.playing);
-    this.sendplayerStatus(true);
-  }
-
-  setPlayerToTurn(playerName) {
-    this.playerToTurn = playerName;
+    super(firstPlayer, secondPlayer, (moveCount = 0));
   }
 
   getFirstPlayerName() {
@@ -144,18 +125,9 @@ class Game {
     return this.board.squares.every(squareArray => squareArray.every(square => square.squareState === 0));
   }
 
-  sendplayerStatus(arePlaying) {
-    this.firstPlayer.socket.emit('setPlayerStatus', {
-      playerName1: this.firstPlayer.name,
-      playerName2: this.secondPlayer.name,
-      isPlaying: arePlaying,
-    });
-    this.secondPlayer.socket.emit('setPlayerStatus', {
-      playerName1: this.firstPlayer.name,
-      playerName2: this.secondPlayer.name,
-      isPlaying: arePlaying,
-    });
+  sendplayerStatus() {
+    return super.sendplayerStatus();
   }
 }
 
-module.exports = Game;
+module.exports = AtariGame;
