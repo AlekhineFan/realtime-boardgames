@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 const server = app.listen(port);
 const io = socketio(server);
 
-const Game = require('./controllers/atariGame');
+const AtariGame = require('./controllers/atariGame');
 const GameManager = require('./controllers/gameManager');
 const PlayerPool = require('./controllers/playerPool');
 const Player = require('./classes/player');
@@ -48,7 +48,7 @@ app.get('/play/newgame/:names', (req, res) => {
 
   if (player1.status === Status.playing || player2.status === Status.playing || !player1 || !player2) return;
 
-  const game = new Game(player1, player2);
+  const game = new AtariGame(player1, player2);
   manager.addGame(game);
 
   player1.socket.emit('newGameStarted', {
