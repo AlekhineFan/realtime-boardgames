@@ -32,6 +32,11 @@ body {
   margin-top: 10vh;
 }
 
+.menu-text {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 14px;
+}
+
 .exclam {
   width: 63px;
   height: 63px;
@@ -39,7 +44,7 @@ body {
 
 #players {
   font-size: 4vh;
-  background-color: rgb(252, 240, 174);
+  background-color: rgb(248, 244, 218);
   border: 1px solid black;
   text-align: center;
   overflow: auto;
@@ -54,7 +59,8 @@ body {
 }
 
 #players-list-title {
-  background-color: rgb(255, 202, 56);
+  background-color: rgb(212, 255, 230);
+  border-bottom: 1px solid black;
   position: sticky;
   left: 10px;
   top: 0px;
