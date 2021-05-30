@@ -6,7 +6,6 @@ const gameStartSound = document.querySelector('#sound-gamestart');
 const gameOverSound = document.querySelector('#sound-gameover');
 const illegalMoveSound = document.querySelector('#sound-illegal');
 
-let currentGameId;
 let toTurn;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -45,7 +44,7 @@ socket.on('setPlayerStatus', data => {
 
 socket.on('newGameStarted', newGameData => {
   gameStartSound.play();
-  currentGameId = newGameData.gameId;
+  sessionStorage.setItem('gameId', newGameData.gameId);
   setHeader(`new game: ${newGameData.firstPlayerName} vs. ${newGameData.secondPlayerName}`);
 });
 
@@ -75,13 +74,13 @@ socket.on('getMoveFromServer', gameData => {
     gameOverSound.play();
     messageContainer.classList.add('show');
     setMessageText('Black');
-    currentGameId = null;
+    sessionStorage.setItem('gameId', '');
     setHeader('Click on a player to start a game!');
   } else if (gameState === 1) {
     gameOverSound.play();
     messageContainer.classList.add('show');
     setMessageText('White');
-    currentGameId = null;
+    sessionStorage.setItem('gameId', '');
     setHeader('Click on a player to start a game!');
   } else if (gameState === 3) {
     gameOverSound.play();
@@ -106,7 +105,7 @@ squares.forEach(square => {
   square.addEventListener('click', () => {
     socket.emit('sendMoveToServer', {
       selectedSquareId: square.id,
-      gameId: currentGameId,
+      gameId: sessionStorage.getItem('gameId'),
       player: playerName,
     });
   });
