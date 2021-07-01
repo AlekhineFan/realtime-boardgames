@@ -16,8 +16,10 @@ const checkPlayerName = require('./utils/checkPlayerName');
 
 const manager = new GameManager();
 const pool = new PlayerPool();
+
 const State = require('./enums/squareState');
 const Status = require('./enums/playerStatus');
+const GameState = require('./enums/gameState');
 
 app.use(express.static('public'));
 app.use('/public', express.static(__dirname + '/public'));
@@ -93,7 +95,7 @@ io.on('connect', socket => {
 
     game.setBoard(row, col, squareState);
 
-    if (game.gameState !== 2) {
+    if (game.gameState !== GameState.ongoing) {
       gameOverBroadcast(io, manager, game, gameData);
     }
   });
