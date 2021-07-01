@@ -26,11 +26,13 @@ class AtariGame extends Game {
     const lastMove = this.board.squares[row][col];
     this.board.squares[row][col].squareState = state;
 
-    const isFull = this.isBoardFull();
+    const isOneEmptySquareLeft = this.isOneEmptySquareLeft();
 
-    if (isFull) {
+    if (isOneEmptySquareLeft) {
       this.gameState = GameState.draw;
       this.setPlayersStatus(PlayerStatus.waiting);
+      this.sendplayerStatus(false);
+      this.gameState = GameState.draw;
     } else {
       const { hasSurroundedBlack, hasSurroundedWhite } = this.scanBoard();
 
@@ -121,8 +123,9 @@ class AtariGame extends Game {
     return { hasSurroundedBlack, hasSurroundedWhite };
   }
 
-  isBoardFull() {
-    return this.board.squares.every(squareArray => squareArray.every(square => square.squareState === 0));
+  isOneEmptySquareLeft() {
+    return this.board.squares.flat()
+      .filter(square => ![1,2].includes(square.squareState)).length === 1;
   }
 
   sendplayerStatus() {
