@@ -46,5 +46,5 @@ document.querySelector('#close-message').addEventListener('click', () => {
 });
 
 function setMessageText(text) {
-  document.querySelector('#message-text').innerText = `${text} won!`;
+  document.querySelector('#message-text').innerText = text;
 }

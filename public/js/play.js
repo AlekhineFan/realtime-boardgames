@@ -73,13 +73,13 @@ socket.on('getMoveFromServer', gameData => {
   if (gameState === 0) {
     gameOverSound.play();
     messageContainer.classList.add('show');
-    setMessageText('Black');
+    setMessageText('Black won!');
     sessionStorage.setItem('gameId', '');
     setHeader('Click on a player to start a game!');
   } else if (gameState === 1) {
     gameOverSound.play();
     messageContainer.classList.add('show');
-    setMessageText('White');
+    setMessageText('White won!');
     sessionStorage.setItem('gameId', '');
     setHeader('Click on a player to start a game!');
   } else if (gameState === 3) {
