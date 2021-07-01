@@ -30,10 +30,6 @@ class Game {
     this.secondPlayer.status = status;
   }
 
-  setBoard() {
-    if (this.board.squares[row][col].squareState !== State.empty) return;
-  }
-
   sendplayerStatus(arePlaying) {
     this.firstPlayer.socket.emit('setPlayerStatus', {
       playerName1: this.firstPlayer.name,
